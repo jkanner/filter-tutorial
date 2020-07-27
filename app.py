@@ -129,8 +129,17 @@ st.pyplot(psdfig)
 # -- Try whitened and band-passed plot
 # -- Whiten and bandpass data
 st.subheader('Whitened and Bandbassed Data')
-white_data = strain.whiten()
-bp_data = white_data.bandpass(30, 400)
+
+lowfreqreal = st.slider("Low frequency cut-off", 1, 49, 40)
+highfreqreal = st.slider("High frequency cut-off", 50, 1000, 300)
+makewhite = st.checkbox("Apply whitening", value=True)
+
+if makewhite:
+    white_data = strain.whiten()
+else:
+    white_data = strain
+
+bp_data = white_data.bandpass(lowfreqreal, highfreqreal)
 fig3 = bp_data.plot()
 plt.xlim(t0-0.2, t0+0.1)
 st.pyplot(fig3)
