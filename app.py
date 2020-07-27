@@ -69,7 +69,9 @@ highfreq = st.slider("High frequency cut-off", 50, 300, 100)
 bp_data = signal.bandpass(lowfreq, highfreq)
 
 plt.figure()
-st.pyplot(bp_data.plot())
+bpfig = bp_data.plot()
+plt.xlim(0,0.3)
+st.pyplot(bpfig)
 
 plt.figure()
 freqdomain = bp_data.fft()
@@ -82,7 +84,10 @@ st.markdown("## Try Whitening")
 
 # white = signal.whiten()
 white = sig1 / amp1 + sig2 / amp2 + sig3/amp3
-st.pyplot(white.plot())
+plt.figure()
+whitefig = white.plot()
+plt.xlim(0,0.3)
+st.pyplot(whitefig)
 
 plt.figure()
 freqdomain = white.fft()
