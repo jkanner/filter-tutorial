@@ -44,8 +44,11 @@ amp3 = st.slider("Amplitude", 1.0, 10.0, 1.0)
 sig3 = makesine(freq3, amp3)
 
 st.markdown("## Add the 3 sine waves together")
+plt.figure()
 signal = sig1 + sig2 + sig3
-st.pyplot(signal.plot())
+figsum = signal.plot()
+plt.xlim(0,0.3)
+st.pyplot(figsum)
 
 
 st.markdown("## Convert to the frequency domain")
