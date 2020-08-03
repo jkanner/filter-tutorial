@@ -26,6 +26,7 @@ def makesine(freq, amp):
     sig1 = TimeSeries(y1, dt=1.0/fs).taper() # ALS: Effect visible in plot: need to address or hide.
     plt.figure()
     fig_sig1 = sig1.crop(cropstart, cropend).plot()
+    plt.xlim(cropstart, cropend)
     plt.ylim(-5,5)
     plt.title('Frequency {0} Hz - Amplitude {1}'.format(freq,amp))
     st.pyplot(fig_sig1, clear_figure=True)
@@ -56,6 +57,7 @@ st.markdown("## Add the 3 sine waves together")
 plt.figure()
 signal = sig1 + sig2 + sig3
 figsum = signal.crop(cropstart, cropend).plot()
+plt.xlim(cropstart, cropend)
 plt.title("Total signal in time domain")
 st.pyplot(figsum, clear_figure=True)
 
