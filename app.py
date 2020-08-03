@@ -21,7 +21,7 @@ def makesine(freq, amp):
     fs = 4096
     time = np.arange(0,3, 1.0/fs)
     y1 = amp*np.sin( 2*np.pi*freq*time )
-    sig1 = TimeSeries(y1, dt=1.0/fs).taper()
+    sig1 = TimeSeries(y1, dt=1.0/fs).taper() # ALS: Effect visible in plot: need to address or hide.
     fig_sig1 = sig1.plot()
     plt.xlim(0,0.3)
     plt.ylim(-5,5)
@@ -104,7 +104,7 @@ st.pyplot()
 st.markdown("## Try Whitening")
 
 # white = signal.whiten()
-white = sig1 / amp1 + sig2 / amp2 + sig3/amp3
+white = sig1 / amp1 + sig2 / amp2 + sig3/amp3 # ALS: Why not use the whiten method?
 plt.figure()
 whitefig = white.plot()
 plt.xlim(0,0.3)
