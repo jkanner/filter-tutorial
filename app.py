@@ -96,21 +96,13 @@ plt.ylim(0,5)
 plt.xlim(0,250)
 st.pyplot()
 
-# -- log plotting
-#plt.figure()
-#bpfig = np.abs(freqdomain).plot()
-#plt.ylim(0,5)
-
-
-
-
 st.markdown("## Try Whitening")
 
 # white = signal.whiten()
 white = sig1 / amp1 + sig2 / amp2 + sig3/amp3 # ALS: Why not use the whiten method?
 plt.figure()
-whitefig = white.plot()
-plt.xlim(0,0.3)
+whitefig = white.crop(cropstart, cropend).plot()
+plt.xlim(cropstart, cropend)
 st.pyplot(whitefig)
 
 plt.figure()
