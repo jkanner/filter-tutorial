@@ -85,6 +85,7 @@ bp_data = signal.bandpass(lowfreq, highfreq)
 
 plt.figure()
 bpfig = bp_data.crop(cropstart, cropend).plot()
+plt.xlim(cropstart, cropend)
 st.pyplot(bpfig, clear_figure=True)
 
 freqdomain = bp_data.fft()
