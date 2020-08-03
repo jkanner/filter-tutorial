@@ -16,34 +16,36 @@ st.title('Signal Processing Tutorial')
 
 st.markdown("## Make a signal with 3 sine waves")
 
+cropstart = 1.0
+cropend   = 1.3
 
 def makesine(freq, amp):
     fs = 4096
     time = np.arange(0,3, 1.0/fs)
     y1 = amp*np.sin( 2*np.pi*freq*time )
     sig1 = TimeSeries(y1, dt=1.0/fs).taper() # ALS: Effect visible in plot: need to address or hide.
-    fig_sig1 = sig1.plot()
-    plt.xlim(0,0.3)
+    plt.figure()
+    fig_sig1 = sig1.crop(cropstart, cropend).plot()
     plt.ylim(-5,5)
     plt.title('Frequency {0} Hz - Amplitude {1}'.format(freq,amp))
-    st.pyplot(fig_sig1)
+    st.pyplot(fig_sig1, clear_figure=True)
     return(sig1)
 
-plt.figure()
+
 st.sidebar.markdown("Controls for sine wave 1")
 st.markdown("### Sine Wave 1")
 freq1 = st.sidebar.slider("Frequency", 20, 200, 20)
 amp1 = st.sidebar.slider("Amplitude", 1.0, 5.0, 5.0)
 sig1 = makesine(freq1, amp1)
 
-plt.figure()
+
 st.sidebar.markdown("Controls for sine wave 2")
 st.markdown("### Sine Wave 2")
 freq2 = st.sidebar.slider("Frequency", 20, 200, 103)
 amp2 = st.sidebar.slider("Amplitude", 1.0, 5.0, 2.0)
 sig2 = makesine(freq2, amp2)
 
-plt.figure()
+
 st.sidebar.markdown("Controls for sine wave 3")
 st.markdown("### Sine Wave 3")
 freq3 = st.sidebar.slider("Frequency", 20, 200, 195)
@@ -53,10 +55,9 @@ sig3 = makesine(freq3, amp3)
 st.markdown("## Add the 3 sine waves together")
 plt.figure()
 signal = sig1 + sig2 + sig3
-figsum = signal.plot()
-plt.xlim(0,0.3)
+figsum = signal.crop(cropstart, cropend).plot()
 plt.title("Total signal in time domain")
-st.pyplot(figsum)
+st.pyplot(figsum, clear_figure=True)
 
 
 st.markdown("## Convert to the frequency domain")
@@ -69,7 +70,7 @@ plt.plot(freqdomain.frequencies, np.abs(freqdomain))
 plt.title("Total signal in frequency domain")
 plt.ylim(0,5)
 plt.xlim(0,250)
-st.pyplot()
+st.pyplot(clear_figure=True)
 #st.pyplot(sigfig)
 
 
@@ -81,9 +82,8 @@ highfreq = st.slider("High frequency cut-off", 50, 300, 150)
 bp_data = signal.bandpass(lowfreq, highfreq)
 
 plt.figure()
-bpfig = bp_data.plot()
-plt.xlim(0,0.3)
-st.pyplot(bpfig)
+bpfig = bp_data.crop(cropstart, cropend).plot()
+st.pyplot(bpfig, clear_figure=True)
 
 freqdomain = bp_data.fft()
 plt.figure()
